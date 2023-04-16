@@ -2,12 +2,12 @@ import { useState } from 'react';
 import axios from 'axios';
 
 // Components
-import SearchResultComponent from './components/SearchResultComponent';
-import Loader from './components/Loader';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import SearchResultComponent from '../components/SearchResultComponent';
+import Loader from '../components/Loader';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
-function App() {
+function HomePage() {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [searchResults, setSearchResults] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +31,7 @@ function App() {
 		<div className="flex flex-col min-h-screen">
 			<Header />
 
-			<div className="container mx-auto p-4 flex-1 my-12">
+			<div className="container mx-auto p-4 flex-1 mt-16">
 				<div className="flex items-center mb-8">
 					<div className="relative flex-1">
 						<input
@@ -82,4 +82,4 @@ function App() {
 	);
 }
 
-export default App;
+export default HomePage;
