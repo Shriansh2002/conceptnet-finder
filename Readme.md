@@ -58,6 +58,7 @@ ConceptNet Finder is built using the following technologies:
 
 -   [React](https://reactjs.org) - A JavaScript library for building user interfaces.
 -   [React Router](https://reactrouter.com/) - A routing library for React applications.
+-   [D3.js](https://d3js.org/) - A JavaScript library for visualizing data using web standards.
 -   [ConceptNet API](https://conceptnet.io/) - A RESTful API for accessing the ConceptNet knowledge graph.
 -   [Vite](https://vitejs.dev/) - A build tool for modern web applications.
 
