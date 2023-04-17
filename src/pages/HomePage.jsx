@@ -41,6 +41,11 @@ function HomePage() {
 							className="py-2 px-4 border border-gray-400 rounded-l-md w-full"
 							value={searchTerm}
 							onChange={(e) => setSearchTerm(e.target.value)}
+							onKeyDown={(e) => {
+								if (e.key === 'Enter') {
+									handleSearch();
+								}
+							}}
 						/>
 						{searchTerm && (
 							<button
@@ -58,7 +63,7 @@ function HomePage() {
 						onClick={handleSearch}
 						disabled={!searchTerm}
 					>
-						{searchResults.length === 0 ? 'Search' : 'Search Again'}
+						Search
 					</button>
 				</div>
 
