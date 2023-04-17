@@ -1,10 +1,15 @@
-import { useState, Fragment } from 'react';
+import { useState, Fragment, useEffect } from 'react';
 import axios from 'axios';
+
+// Components
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Loader from '../components/Loader';
 import SearchResultComponent from '../components/SearchResultComponent';
 import Graph from '../components/Graph';
+
+// Lottie
+import Lottie from 'react-lottie';
 
 function HomePage() {
 	const [searchTerm, setSearchTerm] = useState('');
@@ -12,6 +17,23 @@ function HomePage() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [searched, setSearched] = useState(false);
 	const [graphData, setGraphData] = useState([]);
+
+	const [animationData, setAnimationData] = useState(null);
+
+	const defaultOptions = {
+		loop: true,
+		autoplay: true,
+		animationData: animationData,
+		rendererSettings: {
+			preserveAspectRatio: 'xMidYMid slice',
+		},
+	};
+
+	useEffect(() => {
+		fetch('https://assets6.lottiefiles.com/packages/lf20_2n0sgc.json')
+			.then((response) => response.json())
+			.then((data) => setAnimationData(data));
+	}, []);
 
 	const handleSearch = async () => {
 		setIsLoading(true);
@@ -66,6 +88,10 @@ function HomePage() {
 						Search
 					</button>
 				</div>
+
+				{!searched && !isLoading && (
+					<Lottie options={defaultOptions} height={300} width={300} />
+				)}
 
 				{isLoading && <Loader />}
 
