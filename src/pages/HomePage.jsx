@@ -63,7 +63,7 @@ function HomePage() {
 
 				{isLoading && <Loader />}
 
-				{searchResults.length === 0 && searched && (
+				{searchResults.length === 0 && !isLoading && searched && (
 					<div className="text-center text-gray-500">
 						<p className="text-2xl">No results found</p>
 						<p className="text-xl">
