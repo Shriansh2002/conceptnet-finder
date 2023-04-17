@@ -58,65 +58,77 @@ function HomePage() {
 		<div className="flex flex-col min-h-screen">
 			<Header />
 
-			<div className="container mx-auto p-4 flex-1 mt-16 mb-12">
-				<div className="flex items-center mb-8">
-					<div className="relative flex-1">
-						<form onSubmit={handleSearch}>
-							<input
-								type="text"
-								placeholder="Search ConceptNet"
-								className="py-2 px-4 border border-gray-400 rounded-l-md w-full"
-								value={searchTerm}
-								onChange={(e) => setSearchTerm(e.target.value)}
-							/>
-							{searchTerm && (
-								<button
-									type="button"
-									className="absolute top-0 right-0 bottom-0 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4"
-									onClick={() => setSearchTerm('')}
-								>
-									x
+			<main className="flex-1">
+				<div className="container mx-auto p-4 flex-1 mt-16 mb-12">
+					<div className="flex items-center mb-8">
+						<div className="relative flex-1">
+							<form onSubmit={handleSearch}>
+								<input
+									type="text"
+									placeholder="Search ConceptNet"
+									className="py-2 px-4 border border-gray-400 rounded-l-md w-full"
+									value={searchTerm}
+									onChange={(e) =>
+										setSearchTerm(e.target.value)
+									}
+								/>
+								{searchTerm && (
+									<button
+										type="button"
+										className="absolute top-0 right-0 bottom-0 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4"
+										onClick={() => setSearchTerm('')}
+									>
+										x
+									</button>
+								)}
+								<button type="submit" className="sr-only">
+									Search
 								</button>
-							)}
-							<button type="submit" className="sr-only">
-								Search
-							</button>
-						</form>
+							</form>
+						</div>
+
+						<button
+							className={`bg-blue-500 hover:bg-blue-600 border border-blue-500 hover:border-blue-600 text-white font-semibold py-2 px-4 rounded-r-md ${
+								!searchTerm
+									? 'opacity-50 cursor-not-allowed'
+									: ''
+							}`}
+							onClick={handleSearch}
+							disabled={!searchTerm}
+						>
+							Search
+						</button>
 					</div>
 
-					<button
-						className={`bg-blue-500 hover:bg-blue-600 border border-blue-500 hover:border-blue-600 text-white font-semibold py-2 px-4 rounded-r-md ${
-							!searchTerm ? 'opacity-50 cursor-not-allowed' : ''
-						}`}
-						onClick={handleSearch}
-						disabled={!searchTerm}
-					>
-						Search
-					</button>
+					{!searched && !isLoading && (
+						<Lottie
+							options={defaultOptions}
+							height={300}
+							width={300}
+						/>
+					)}
+
+					{isLoading && <Loader />}
+
+					{searchResults.length === 0 && !isLoading && searched && (
+						<div className="text-center text-gray-500">
+							<p className="text-2xl">No results found</p>
+							<p className="text-xl">
+								Try searching for something else
+							</p>
+						</div>
+					)}
+
+					{!isLoading && searchResults.length > 0 && (
+						<Fragment>
+							<SearchResultComponent
+								searchResults={searchResults}
+							/>
+							<Graph data={graphData} />
+						</Fragment>
+					)}
 				</div>
-
-				{!searched && !isLoading && (
-					<Lottie options={defaultOptions} height={300} width={300} />
-				)}
-
-				{isLoading && <Loader />}
-
-				{searchResults.length === 0 && !isLoading && searched && (
-					<div className="text-center text-gray-500">
-						<p className="text-2xl">No results found</p>
-						<p className="text-xl">
-							Try searching for something else
-						</p>
-					</div>
-				)}
-
-				{!isLoading && searchResults.length > 0 && (
-					<Fragment>
-						<SearchResultComponent searchResults={searchResults} />
-						<Graph data={graphData} />
-					</Fragment>
-				)}
-			</div>
+			</main>
 
 			<Footer />
 		</div>
