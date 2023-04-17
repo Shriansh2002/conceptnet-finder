@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 import axios from 'axios';
-
-// Components
-import SearchResultComponent from '../components/SearchResultComponent';
-import Loader from '../components/Loader';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Loader from '../components/Loader';
+import SearchResultComponent from '../components/SearchResultComponent';
+import Graph from '../components/Graph';
 
 function HomePage() {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [searchResults, setSearchResults] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [searched, setSearched] = useState(false);
+	const [graphData, setGraphData] = useState([]);
 
 	const handleSearch = async () => {
 		setIsLoading(true);
@@ -20,6 +20,7 @@ function HomePage() {
 				`https://api.conceptnet.io/c/en/${searchTerm.toLowerCase()}?limit=20`
 			);
 			setSearchResults(response.data.edges);
+			setGraphData(response.data.edges); // setting graph data here
 			setSearched(true);
 		} catch (error) {
 			console.error(error);
@@ -73,7 +74,10 @@ function HomePage() {
 				)}
 
 				{!isLoading && searchResults.length > 0 && (
-					<SearchResultComponent searchResults={searchResults} />
+					<Fragment>
+						<SearchResultComponent searchResults={searchResults} />
+						<Graph data={graphData} />
+					</Fragment>
 				)}
 			</div>
 
