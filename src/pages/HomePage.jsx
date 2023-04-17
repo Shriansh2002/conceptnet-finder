@@ -38,7 +38,8 @@ function HomePage() {
 			.then((data) => setAnimationData(data));
 	}, []);
 
-	const handleSearch = async () => {
+	const handleSearch = async (e) => {
+		e.preventDefault();
 		setIsLoading(true);
 		try {
 			const response = await axios.get(
@@ -60,27 +61,29 @@ function HomePage() {
 			<div className="container mx-auto p-4 flex-1 mt-16 mb-12">
 				<div className="flex items-center mb-8">
 					<div className="relative flex-1">
-						<input
-							type="text"
-							placeholder="Search ConceptNet"
-							className="py-2 px-4 border border-gray-400 rounded-l-md w-full"
-							value={searchTerm}
-							onChange={(e) => setSearchTerm(e.target.value)}
-							onKeyDown={(e) => {
-								if (e.key === 'Enter') {
-									handleSearch();
-								}
-							}}
-						/>
-						{searchTerm && (
-							<button
-								className="absolute top-0 right-0 bottom-0 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4"
-								onClick={() => setSearchTerm('')}
-							>
-								x
+						<form onSubmit={handleSearch}>
+							<input
+								type="text"
+								placeholder="Search ConceptNet"
+								className="py-2 px-4 border border-gray-400 rounded-l-md w-full"
+								value={searchTerm}
+								onChange={(e) => setSearchTerm(e.target.value)}
+							/>
+							{searchTerm && (
+								<button
+									type="button"
+									className="absolute top-0 right-0 bottom-0 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4"
+									onClick={() => setSearchTerm('')}
+								>
+									x
+								</button>
+							)}
+							<button type="submit" className="sr-only">
+								Search
 							</button>
-						)}
+						</form>
 					</div>
+
 					<button
 						className={`bg-blue-500 hover:bg-blue-600 border border-blue-500 hover:border-blue-600 text-white font-semibold py-2 px-4 rounded-r-md ${
 							!searchTerm ? 'opacity-50 cursor-not-allowed' : ''
