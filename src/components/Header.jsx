@@ -9,14 +9,16 @@ const Header = () => {
 				</a>
 				<nav>
 					<ul className="flex space-x-4">
-						<li>
-							<a href="/" className="hover:text-gray-200">
+						<li className="group">
+							<a href="/" className="relative">
 								Home
+								<div className="absolute bottom-0 left-0 w-0 bg-white h-0.5 opacity-0 duration-500 transition-all group-hover:w-full group-hover:opacity-100" />
 							</a>
 						</li>
-						<li>
-							<a href="/about" className="hover:text-gray-200">
+						<li className="group">
+							<a href="/about" className="relative">
 								About
+								<div className="absolute bottom-0 left-0 w-0 bg-white h-0.5 opacity-0 duration-500 transition-all group-hover:w-full group-hover:opacity-100" />
 							</a>
 						</li>
 					</ul>
