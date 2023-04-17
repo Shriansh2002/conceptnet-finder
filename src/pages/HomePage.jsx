@@ -17,7 +17,7 @@ function HomePage() {
 		setIsLoading(true);
 		try {
 			const response = await axios.get(
-				`https://api.conceptnet.io/c/en/${searchTerm}?limit=20`
+				`https://api.conceptnet.io/c/en/${searchTerm.toLowerCase()}?limit=20`
 			);
 			setSearchResults(response.data.edges);
 			setSearched(true);
@@ -31,7 +31,7 @@ function HomePage() {
 		<div className="flex flex-col min-h-screen">
 			<Header />
 
-			<div className="container mx-auto p-4 flex-1 mt-16">
+			<div className="container mx-auto p-4 flex-1 mt-16 mb-12">
 				<div className="flex items-center mb-8">
 					<div className="relative flex-1">
 						<input
