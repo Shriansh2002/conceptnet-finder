@@ -1,4 +1,4 @@
-import { useState, Fragment, useEffect } from 'react';
+import { useState, Fragment, useEffect, useMemo } from 'react';
 import axios from 'axios';
 
 // Components
@@ -20,14 +20,17 @@ function HomePage() {
 
 	const [animationData, setAnimationData] = useState(null);
 
-	const defaultOptions = {
-		loop: true,
-		autoplay: true,
-		animationData: animationData,
-		rendererSettings: {
-			preserveAspectRatio: 'xMidYMid slice',
-		},
-	};
+	const defaultOptions = useMemo(
+		() => ({
+			loop: true,
+			autoplay: true,
+			animationData: animationData,
+			rendererSettings: {
+				preserveAspectRatio: 'xMidYMid slice',
+			},
+		}),
+		[animationData]
+	);
 
 	useEffect(() => {
 		fetch('https://assets6.lottiefiles.com/packages/lf20_2n0sgc.json')
